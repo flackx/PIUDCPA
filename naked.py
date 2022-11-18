@@ -9,7 +9,6 @@ import mysql.connector
 import logging.config
 
 from mysql.connector import Error
-
 from datetime import datetime
 from configparser import ConfigParser
 
@@ -50,6 +49,7 @@ def init_db():
     global connection
     connection = mysql.connector.connect(host=mysql_config_mysql_host, database=mysql_config_mysql_db,
                                          user=mysql_config_mysql_user, password=mysql_config_mysql_pass)
+
 
 
 def get_cursor():
@@ -120,6 +120,23 @@ if __name__ == "__main__":
     connected = False
 
     init_db()
+    
+    # Opening connection to mysql DB
+	logger.info('Connecting to MySQL DB')
+	try:
+		# connection = mysql.connector.connect(host=mysql_config_mysql_host, database=mysql_config_mysql_db, user=mysql_config_mysql_user, password=mysql_config_mysql_pass)
+		cursor = get_cursor()
+		if connection.is_connected():
+			db_Info = connection.get_server_info()
+			logger.info('Connected to MySQL database. MySQL Server version on ' + str(db_Info))
+			cursor = connection.cursor()
+			cursor.execute("select database();")
+			record = cursor.fetchone()
+			logger.debug('Your connected to - ' + str(record))
+			connection.commit()
+	except Error as e :
+		logger.error('Error while connecting to MySQL' + str(e))
+        
 
     # Getting todays date
     dt = datetime.now()
