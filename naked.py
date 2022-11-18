@@ -27,7 +27,7 @@ logger.info('Loading configuration from file')
 # Prieks api un datu atrasanas vietas
 try:
 	config = ConfigParser()
-	config.read('config.ini')
+	config.read("/home/s155/files/config.ini")
 
 	nasa_api_key = config.get('nasa', 'api_key')
 	nasa_api_url = config.get('nasa', 'api_url')
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 	connected = False
 
 	init_db()
-    #Vai izdosies pieslegties db
+    #check for connection with db
 	logger.info('Connecting to MySQL DB')
 	try:
 		# connection = mysql.connector.connect(host=mysql_config_mysql_host, database=mysql_config_mysql_db, user=mysql_config_mysql_user, password=mysql_config_mysql_pass)
@@ -209,6 +209,5 @@ if __name__ == "__main__":
 			logger.info("No asteroids close passing earth today")
 		if len(ast_safe) > 0:
 			push_asteroids_arrays_to_db(request_date, ast_safe, 0)
-	#Ja api nenostrādāja, izmet šo.
 	else:
 		logger.critical("Unable to get response from API. Response code: " + str(r.status_code) + " | content: " + str(r.text))
