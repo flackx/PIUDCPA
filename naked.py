@@ -1,4 +1,4 @@
-#import logger as logger
+import logger as logger
 import requests
 import json
 import datetime
