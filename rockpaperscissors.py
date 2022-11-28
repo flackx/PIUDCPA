@@ -1,20 +1,31 @@
 import random
 
-list = ["rock","paper","scissors"]
-val1 = input("Choose rock,paper or scissors : ")
-computerchoice = random.choice(list)
 
-if computerchoice == val1:
-    print("Its a draw. You both picked the same")
-elif computerchoice == "rock" and val1 == "paper":
-    print("Congratulations, you won!")
-elif computerchoice == "rock" and val1 == "scissors":
-    print("Oh no, looks like the computer has won")
-elif computerchoice == "paper" and val1 == "scissors":
-    print("Congratulations, you won!")
-elif computerchoice == "paper" and val1 == "rock":    
-    print("Oh no, looks like the computer has won")
-elif computerchoice == "scissors" and val1 == "rock":    
-    print("Congratulations, you won!")
-elif computerchoice == "scissors" and val1 == "paper":    
-    print("Oh no, looks like the computer has won")
+
+while True:
+    user_action = input("Choose rock,paper or scissors : ")
+    list1 = ["rock", "paper", "scissors"]
+    val1 = random.choice(list1)
+    print(f"\nYou chose {user_action}, computer chose {val1}.\n")
+
+    if user_action == val1:
+        print(f"Both players selected {user_action}. It's a tie!")
+    elif user_action == "rock":
+        if val1 == "scissors":
+            print("Rock smashes scissors! You win!")
+        else:
+            print("Paper covers rock! You lose.")
+    elif user_action == "paper":
+        if val1 == "rock":
+            print("Paper covers rock! You win!")
+        else:
+            print("Scissors cuts paper! You lose.")
+    elif user_action == "scissors":
+        if val1 == "paper":
+            print("Scissors cuts paper! You win!")
+        else:
+            print("Rock smashes scissors! You lose.")
+
+    play_again = input("Play again? (y/n): ")
+    if play_again.lower() != "y":
+        break
